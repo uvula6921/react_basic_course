@@ -14,7 +14,7 @@ const Nemo = (props) => {
   }
   
   return (
-    <div className="App">
+    <div className="wrap">
       {nemo_count.map((num, index) => { // 돔 구조 안에서 map을 이용한 반복문을 사용하기 위해 {} bracket으로 감싸주었음.
           return (
             <div key={index} style={{
