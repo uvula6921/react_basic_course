@@ -13,25 +13,29 @@ class App extends React.Component {
     
     this.text = React.createRef()
   }
-
-  componentDidMount() {
-    console.log(this.text)
-    console.log(this.text.current)
+  
+  submitList = () => {
+    let list = this.state.list;
+    const new_item = this.text.current.value;
+    
+    this.setState({list: [...list, new_item]}) // 불변성을 유지하는 법으로 쓰임 -> 기존 배열에 new_item을 추가한게 아니라
+    // 새로운 배열에 기존 배열 요소들 + new_item을 담은것이기 때문에 기존 배열은 바뀌지 않았음.
+    this.text.current.value = ""
   }
-
+  
   render() {
-    console.log(this.state);
-
+      
       return (
       <div className="App">
         <Container>
           <Title >내 버킷리스트</Title>
           <Line/>
           <BucketList list={this.state.list} />
+          <div>
+            <Input type="text" ref={this.text}></Input>
+            <Submit onClick={this.submitList}>추가하기</Submit>
+          </div>
         </Container>
-        <div>
-          <input type="text" ref={this.text}></input>
-        </div>
       </div>
     );
   }
@@ -45,6 +49,8 @@ const Container = styled.div`
   margin: 20px auto;
   border-radius: 5px;
   border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
@@ -55,6 +61,14 @@ const Title = styled.h1`
 const Line = styled.hr`
   margin: 16px 0px;
   border: 1px dotted #ddd;
+`;
+
+const Input = styled.input`
+  
+`;
+
+const Submit = styled.button`
+  
 `;
 
 export default App;
