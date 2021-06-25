@@ -1,0 +1,13 @@
+$bgColor: #eee;
+
+.App{
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #{$bgColor};
+    padding: 32px;
+    box-sizing: border-box;
+    
+    // &:hover {
+    //   background-color: blue;
+    // }
+}
