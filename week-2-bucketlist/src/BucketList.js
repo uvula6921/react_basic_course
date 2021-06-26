@@ -7,12 +7,12 @@ const BucketList = (props) => {
   const bucket_list = useSelector(state => state.bucket.list)
 
   return (
-    <ListStyle onClick={() => {
-      props.history.push('/Detail') // 
-    }}>
+    <ListStyle>
       {bucket_list.map((list, index) => {
         return (
-          <ItemStyle key={index}>
+          <ItemStyle key={index} onClick={() => {
+            props.history.push('/Detail/' + index) // 
+          }}>
             {list}
           </ItemStyle>
         );

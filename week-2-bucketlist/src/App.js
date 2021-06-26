@@ -60,7 +60,7 @@ class App extends React.Component {
             <Route exact path="/" render={(props) => <BucketList history={props.history} />} />
             {/* props를 넘겨주는 컴포넌트이기 때문에 render 형식의 component를 이용함. */}
             {/*  */}
-            <Route path="/Detail" component={Detail}/>
+            <Route path="/Detail/:index" component={Detail}/>
             <Route render={() => <NotFound history={this.props.history}/>} /> {/* 없는 주소에 접속했을 때 예외처리. 모든 Route를 Switch로 감싸야함. */}
           </Switch>
           <div>
