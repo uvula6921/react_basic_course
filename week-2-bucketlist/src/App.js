@@ -3,6 +3,10 @@ import BucketList from './BucketList';
 // import './style.css';
 import './scss_ex.scss';
 import styled from 'styled-components'
+import { Route } from "react-router-dom";
+import { withRouter } from "react-router";
+import Detail from './Detail';
+
 class App extends React.Component {
 
   constructor(props){
@@ -30,10 +34,16 @@ class App extends React.Component {
         <Container>
           <Title >내 버킷리스트</Title>
           <Line/>
-          <BucketList list={this.state.list} />
+          <Route exact path="/" render={(props) => <BucketList list={this.state.list} history={this.props.history} />} />
+          {/* props를 넘겨주는 컴포넌트이기 때문에 render 형식의 component를 이용함. */}
+          {/*  */}
+          <Route path="/Detail" component={Detail}/>
           <div>
             <Input type="text" ref={this.text}></Input>
             <Submit onClick={this.submitList}>추가하기</Submit>
+            <button onClick={() => {
+              this.props.history.push("/")
+            }}>홈으로</button>
           </div>
         </Container>
       </div>
@@ -71,4 +81,4 @@ const Submit = styled.button`
   
 `;
 
-export default App;
+export default withRouter(App);

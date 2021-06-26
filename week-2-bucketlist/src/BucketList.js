@@ -4,9 +4,11 @@ import styled from "styled-components";
 
 const BucketList = (props) => {
   const my_lists = props.list;
-
+  console.log(props)
   return (
-    <ListStyle>
+    <ListStyle onClick={() => {
+      props.history.push('/Detail') // 
+    }}>
       {my_lists.map((list, index) => {
         return (
           <ItemStyle key={index}>
