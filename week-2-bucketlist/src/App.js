@@ -7,24 +7,39 @@ import { Route, Switch, NavLink } from "react-router-dom";
 import { withRouter } from "react-router";
 import Detail from './Detail';
 import NotFound from './NotFound';
+import {connect} from 'react-redux';
+import { loadBucket, createBucket } from './redux/modules/bucket';
+
+const mapStateToProps = (state) => {
+  return {bucket_list: state.bucket.list} // 여기서 state 뒤에 bucket이 뭔지 모르겠다...
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    load: () => {
+      dispatch(loadBucket());
+    },
+    create: (bucket) => {
+      dispatch(createBucket(bucket))
+    }
+  }
+}
 
 class App extends React.Component {
 
   constructor(props){
     super(props);
     this.state = {
-      list: ['영화관 가기', '매일 책읽기', '수영 배우기'],
+      
     };
     
     this.text = React.createRef()
   }
   
   submitList = () => {
-    let list = this.state.list;
     const new_item = this.text.current.value;
+    this.props.create(new_item)
     
-    this.setState({list: [...list, new_item]}) // 불변성을 유지하는 법으로 쓰임 -> 기존 배열에 new_item을 추가한게 아니라
-    // 새로운 배열에 기존 배열 요소들 + new_item을 담은것이기 때문에 기존 배열은 바뀌지 않았음.
     this.text.current.value = ""
   }
   
@@ -42,7 +57,7 @@ class App extends React.Component {
           <Title >내 버킷리스트</Title>
           <Line/>
           <Switch>
-            <Route exact path="/" render={(props) => <BucketList list={this.state.list} history={props.history} />} />
+            <Route exact path="/" render={(props) => <BucketList list={this.props.bucket_list} history={props.history} />} />
             {/* props를 넘겨주는 컴포넌트이기 때문에 render 형식의 component를 이용함. */}
             {/*  */}
             <Route path="/Detail" component={Detail}/>
@@ -91,4 +106,4 @@ const Submit = styled.button`
   
 `;
 
-export default withRouter(App);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

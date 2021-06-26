@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const BucketList = (props) => {
   const my_lists = props.list;
-  console.log(props)
+
   return (
     <ListStyle onClick={() => {
       props.history.push('/Detail') // 
