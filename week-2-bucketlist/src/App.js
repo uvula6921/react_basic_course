@@ -48,12 +48,12 @@ class App extends React.Component {
       return (
       <div className="App">
         <Container>
-          <NavLink to="/faq" activeClassName="selected" activeStyle={{
-    fontWeight: "bold",
-    color: "red"
-  }}>
+          {/* <NavLink to="/faq" activeClassName="selected" activeStyle={{
+            fontWeight: "bold",
+            color: "red"
+          }}>
             FAQs
-          </NavLink>
+          </NavLink> */}
           <Title >내 버킷리스트</Title>
           <Line/>
           <Switch>
