@@ -57,7 +57,7 @@ class App extends React.Component {
           <Title >내 버킷리스트</Title>
           <Line/>
           <Switch>
-            <Route exact path="/" render={(props) => <BucketList list={this.props.bucket_list} history={props.history} />} />
+            <Route exact path="/" render={(props) => <BucketList history={props.history} />} />
             {/* props를 넘겨주는 컴포넌트이기 때문에 render 형식의 component를 이용함. */}
             {/*  */}
             <Route path="/Detail" component={Detail}/>
