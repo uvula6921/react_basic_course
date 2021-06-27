@@ -1,10 +1,10 @@
 import {createStore, combineReducers} from "redux";
-import bucket from "./modules/bucket";
+import message from "./modules/message";
 import {createBrowserHistory} from "history";
 
 export const history = createBrowserHistory();
 
-const rootReducer = combineReducers({bucket});
+const rootReducer = combineReducers({message});
 
 const store = createStore(rootReducer);
 
