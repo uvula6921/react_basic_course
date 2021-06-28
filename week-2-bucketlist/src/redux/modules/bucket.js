@@ -137,7 +137,8 @@ export default function reducer(state = initialState, action) {
     }
     
     case "bucket/LOADED": {
-      return {...state, is_loaded: action.loaded}
+      return {...state, is_loaded: action.loaded} // 기존의 state 요소들(list)은 그대로 두고 is_loaded만 action.loaded로 변경해줌
+      // reducer의 return은 언제나 ...state를 기본으로 넣어주는것이 좋겠다...
     }
 
     default:
