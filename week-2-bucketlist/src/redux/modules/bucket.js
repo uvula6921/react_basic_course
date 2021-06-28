@@ -110,20 +110,20 @@ export default function reducer(state = initialState, action) {
     // do reducer stuff
     case "bucket/LOAD": {
       if (action.bucket.length) {
-        return {list: action.bucket, is_loaded: true};
+        return {...state, list: action.bucket, is_loaded: true};
       }
       return state;
     }
 
     case "bucket/CREATE":
       const new_bucket_list = [...state.list, action.bucket];
-      return {list: new_bucket_list};
+      return {...state, list: new_bucket_list};
 
     case "bucket/DELETE":
       const bucket_list = state.list.filter((l, idx) => {
         return idx !== action.bucket
       });
-      return {list: bucket_list};
+      return {...state, list: bucket_list};
       
     case "bucket/UPDATE": {
       const bucket_list = state.list.map((l, idx) => {
@@ -133,7 +133,7 @@ export default function reducer(state = initialState, action) {
           return l;
         }
       })
-      return {list: bucket_list};
+      return {...state, list: bucket_list};
     }
     
     case "bucket/LOADED": {
