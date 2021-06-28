@@ -13,7 +13,7 @@ import Progress from "./Progress";
 // 리덕스 스토어와 연결하기 위해 connect라는 친구를 호출할게요!
 import {connect} from 'react-redux';
 // 리덕스 모듈에서 (bucket 모듈에서) 액션 생성 함수 두개를 가져올게요!
-import {loadBucket, createBucket} from './redux/modules/bucket';
+import {loadBucket, createBucket, loadBucketFB, addBucketFB} from './redux/modules/bucket';
 
 import { firestore } from "./firebase";
 
@@ -25,43 +25,18 @@ const mapStateToProps = (state) => ({
 // 이 함수는 값을 변화시키기 위한 액션 생성 함수를 props로 받아오기 위한 함수예요.
 const mapDispatchToProps = (dispatch) => ({
   load: () => {
-    dispatch(loadBucket());
+    dispatch(loadBucketFB());
   },
   create: (new_item) => {
-    dispatch(createBucket(new_item));
+    dispatch(addBucketFB(new_item));
   }
 });
 
 // 클래스형 컴포넌트는 이렇게 생겼습니다!
 class App extends React.Component {
   
-  componentDidMount() {
-    const bucket = firestore.collection("bucket2");
-    
-    bucket.doc("bucket_item").set({text: "수영 배우기", completed: false})
-    // bucket.doc("bucket_item 1").get().then((doc) => {
-    //   console.log(doc)
-    // });
-
-    // bucket.get().then(docs => {
-    //   let bucket_data = [];
-    //   docs.forEach((doc) => {
-    //     if (doc.exists) {
-    //       bucket_data = [...bucket_data, {id: doc.id, ...doc.data()}]
-    //     }
-    //   })
-    // })
-    
-    // bucket.add({text: "캘리그라피 배우기", completed: false}).then(docRef => {
-    //   console.log(docRef);
-    //   console.log(docRef.id);
-    // })
-    
-    // bucket.doc("O3ASbozG4vOpJ53HJ1Ek").update({text: "서예 배우기"})
-    
-    // bucket.doc("bucket_item 2").delete().then(docRef => {
-      
-    // })
+  componentDidMount () {
+    this.props.load()
   }
   
   constructor(props) {
