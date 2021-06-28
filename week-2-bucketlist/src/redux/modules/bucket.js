@@ -8,11 +8,15 @@ const LOAD = "bucket/LOAD";
 const CREATE = "bucket/CREATE";
 const DELETE = "bucket/DELETE";
 const UPDATE = "bucket/UPDATE";
+const LOADED = "bucket/LOADED";
 
 const initialState = {
   list: [
-    
+    {text: '영화관 가기', completed: false},
+    {text: '매일 책읽기', completed: false},
+    {text: '수영 배우기', completed: false},
   ],
+  is_loaded: false,
   // list: ["영화관 가기", "매일 책읽기", "수영 배우기"],
 };
 
@@ -50,10 +54,14 @@ export const loadBucketFB = () => {
 
 export const addBucketFB = (bucket) => {
   return function (dispatch) {
+    dispatch(isLoaded(false));
+    
     let bucket_data = {text: bucket, completed: false}
     bucket_db.add(bucket_data).then(docRef => {
       bucket_data = {...bucket_data, id: docRef.id};
       dispatch(createBucket(bucket_data))
+      
+      dispatch(isLoaded(true));
     })
   }
 }
@@ -92,13 +100,17 @@ export const deleteBucketFB = (bucket) => {
   }
 }
 
+export const isLoaded = (loaded) => {
+  return {type: LOADED, loaded};
+}
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     // do reducer stuff
     case "bucket/LOAD": {
       if (action.bucket.length) {
-        return {list: action.bucket};
+        return {list: action.bucket, is_loaded: true};
       }
       return state;
     }
@@ -122,6 +134,10 @@ export default function reducer(state = initialState, action) {
         }
       })
       return {list: bucket_list};
+    }
+    
+    case "bucket/LOADED": {
+      return {...state, is_loaded: action.loaded}
     }
 
     default:

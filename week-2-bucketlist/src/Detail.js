@@ -1,5 +1,6 @@
 // 리액트 패키지를 불러옵니다.
 import React from "react";
+import {Button, ButtonGroup} from "@material-ui/core"
 
 // redux hook을 불러옵니다.
 import { useDispatch, useSelector } from "react-redux";
@@ -17,16 +18,18 @@ const Detail = (props) => {
   return (
     <div>
       {bucket_list[bucket_index] && <h1>{bucket_list[bucket_index].text}</h1>}
-      <button onClick={() => {
-        // dispatch(); <- 괄호안에는 액션 생성 함수가 들어가야겠죠?
-        // 예를 들면 이렇게요.
-        dispatch(deleteBucketFB(bucket_index));
-        props.history.goBack();
-      }}>삭제하기</button>
-      <button onClick={() => {
-        dispatch(updateBucketFB(bucket_index));
-        props.history.goBack();
-      }}>완료하기</button>
+      <ButtonGroup>
+        <Button onClick={() => {
+          // dispatch(); <- 괄호안에는 액션 생성 함수가 들어가야겠죠?
+          // 예를 들면 이렇게요.
+          dispatch(deleteBucketFB(bucket_index));
+          props.history.goBack();
+        }}>삭제하기</Button>
+        <Button color="secondary" onClick={() => {
+          dispatch(updateBucketFB(bucket_index));
+          props.history.goBack();
+        }}>완료하기</Button>
+      </ButtonGroup>
     </div>
   );
 };
