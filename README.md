@@ -1,2 +1,2 @@
 # react_main_course
-리액트 메인 코스
+리액트  코스
